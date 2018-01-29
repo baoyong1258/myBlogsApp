@@ -25,9 +25,6 @@ const styles = theme => ({
         height: 140,
         width: 100,
     },
-    control: {
-        padding: theme.spacing.unit * 2,
-    },
 });
 
 class GuttersGrid extends React.Component {
@@ -91,11 +88,21 @@ class GuttersGrid extends React.Component {
                 </Grid>
                 <style jsx>
                     {`
+                        .container {
+                            height: 500px;
+                        }
                         .box {
                             border: 1px solid #ccc;
+                            height: 100%;
                         }
                     `}
                 </style>
+                <style global jsx>{`
+                    html,body {
+                        margin: 0px;
+                        height: 100%;
+                    }
+                `}</style>
             </Grid>
         )
     }
