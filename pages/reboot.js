@@ -5,7 +5,6 @@ function MyApp() {
         <div>
             <Reboot />
             {/* The rest of your application */}
-            <p>hello reboot</p>
         </div>
     );
 }

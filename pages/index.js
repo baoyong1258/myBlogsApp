@@ -1,31 +1,76 @@
 import React from 'react';
-import Link from 'next/link';
+import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
-// import '../static/fonts.css';
+import Dialog, {
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from 'material-ui/Dialog';
+import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
+import withRoot from '../src/withRoot';
+import Link from 'next/link';
 
-export default class extends React.Component {
+const styles = theme => ({
+  root: {
+    textAlign: 'center',
+    paddingTop: theme.spacing.unit * 20,
+  },
+});
 
-    render() {
-        return (
-            <div>
-                {/*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>*/}
-                <h2>hello next.js !</h2>
-                <Link href="/one"><a>to one</a></Link>
-                <hr/>
-                <Link href="/two"><a>to two</a></Link>
-                <hr/>
-                <Link href="/reboot"><a>reboot</a></Link>
-                <hr/>
-                <Link href="/color"><a>color</a></Link>
-                <hr/>
-                <Link href="/icon"><a>icon</a></Link>
-                <hr/>
-                <Link href="/page"><a>page</a></Link>
-                <hr/>
-                <Link href="/page2"><a>page2</a></Link>
-                <hr/>
-                <Button raised color="primary">Button</Button>
-            </div>
-        )
-    }
+class Index extends React.Component {
+  state = {
+    open: false,
+  };
+
+  handleClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
+  handleClick = () => {
+    this.setState({
+      open: true,
+    });
+  };
+
+  render() {
+    const { classes } = this.props;
+    const { open } = this.state;
+
+    return (
+      <div className={classes.root}>
+        <Dialog open={open} onClose={this.handleClose}>
+          <DialogTitle>Super Secret Password</DialogTitle>
+          <DialogContent>
+            <DialogContentText>1-2-3-4-5</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button color="primary" onClick={this.handleClose}>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Typography type="display1" gutterBottom>
+          Material-UI
+        </Typography>
+        <Typography type="subheading" gutterBottom>
+          example project
+        </Typography>
+        <Button raised color="secondary" onClick={this.handleClick}>
+          Super Secret Password
+        </Button>
+        <Link href="/demo"><a>demo</a></Link>
+        <hr/>
+      </div>
+    );
+  }
 }
+
+Index.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withRoot(withStyles(styles)(Index));
