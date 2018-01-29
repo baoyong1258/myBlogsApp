@@ -38,8 +38,8 @@ class GuttersGrid extends React.Component {
         const classes = this.props;
         return (
             <Grid container spacing={0} className="container">
-                <Grid item xs={2}>
-                    <div className="box">
+                <Grid>
+                    <div className="box sidebar">
                         <List className={classes.root} subheader={<ListSubheader>Nested List Items</ListSubheader>}>
                             <ListItem button>
                                 <ListItemIcon>
@@ -68,13 +68,86 @@ class GuttersGrid extends React.Component {
                                         </ListItemIcon>
                                         <ListItemText inset primary="Starred" />
                                     </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+                                    <ListItem button className={classes.nested}>
+                                        <ListItemIcon>
+                                            <StarBorder />
+                                        </ListItemIcon>
+                                        <ListItemText inset primary="Starred" />
+                                    </ListItem>
+
                                 </List>
                             </Collapse>
                         </List>
                     </div>
                 </Grid>
-                <Grid item xs={10}>
-                    <div className="box">
+                <Grid>
+                    <div className="box tag">
                         <div className={classes.root}>
                             <AppBar position="static" color="primary">
                                 <Toolbar>
@@ -86,6 +159,38 @@ class GuttersGrid extends React.Component {
                         </div>
                     </div>
                 </Grid>
+                <div className="content">
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                    <p>hello world!</p>
+                </div>
                 <style jsx>
                     {`
                         .container {
@@ -93,9 +198,26 @@ class GuttersGrid extends React.Component {
                             top: 0;
                             left: 0;
                         }
-                        .box {
-                            border: 1px solid #ccc;
+                        .sidebar {
+                            position: fixed;
                             height: 100%;
+                            width: 20%;
+                            overflow-y: auto;
+                            border-right: 1px solid #ccc;
+                        }
+                        .tag {
+                            position: fixed;
+                            width: 80%
+                            right: 0;
+                            z-index: 2;
+                        }
+                        .content {
+                            box-sizing: border-box;
+                            position: absolute;
+                            top: 64px;
+                            left: 20%;
+                            width: 80%
+                            padding: 30px 50px 20px 50px;
                         }
                     `}
                 </style>
