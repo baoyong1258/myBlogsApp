@@ -37,7 +37,7 @@ class GuttersGrid extends React.Component {
     render(){
         const classes = this.props;
         return (
-            <Grid container spacing={0}>
+            <Grid container spacing={0} className="container">
                 <Grid item xs={2}>
                     <div className="box">
                         <List className={classes.root} subheader={<ListSubheader>Nested List Items</ListSubheader>}>
@@ -89,7 +89,9 @@ class GuttersGrid extends React.Component {
                 <style jsx>
                     {`
                         .container {
-                            height: 500px;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
                         }
                         .box {
                             border: 1px solid #ccc;
