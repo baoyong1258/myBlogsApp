@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
+import Link from 'next/link';
 // List
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
@@ -30,6 +31,12 @@ const styles = theme => ({
     },
 });
 
+const PostLink = (props) => (
+    <Link as={`/p/${props.title}`} href={`/post?title=${props.title}`}>
+        <a>{props.title}</a>
+    </Link>
+)
+
 class GuttersGrid extends React.Component {
     state = {
         open: true,
@@ -47,7 +54,7 @@ class GuttersGrid extends React.Component {
                 title: 'type2',
                 children: [
                     {
-                        title: 'child1',
+                        title: 'child2',
                         children: [],
                     }
                 ],
@@ -85,7 +92,8 @@ class GuttersGrid extends React.Component {
                                         <Collapse in={item.open} timeout="auto" unmountOnExit key={i}>
                                             <List component="div" disablePadding>
                                                 <ListItem button>
-                                                    <ListItemText inset primary={child.title}/>
+                                                    <PostLink title={child.title}></PostLink>
+                                                    {/*<ListItemText inset primary={child.title}/>*/}
                                                 </ListItem>
                                             </List>
                                         </Collapse>
