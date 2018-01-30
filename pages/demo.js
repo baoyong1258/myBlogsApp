@@ -74,7 +74,7 @@ class GuttersGrid extends React.Component {
             <Grid container spacing={0} className="container">
                 <Grid>
                     <div className="box sidebar">
-                        <List className={classes.root} subheader={<ListSubheader>Nested List Items</ListSubheader>}>
+                        <List className={classes.root} subheader={<p className={classes.subheader}>by</p>}>
                             {this.state.dataList.map((item, index) =>
                                 <div key={index}>
                                     <ListItem button onClick={this.handleClick} data-index={index} >
@@ -98,7 +98,7 @@ class GuttersGrid extends React.Component {
                 <Grid>
                     <div className="box tag">
                         <div className={classes.root}>
-                            <AppBar position="static" color="primary">
+                            <AppBar position="static" color="primary" id="appBar">
                                 <Toolbar>
                                     <Typography type="title" color="inherit">
                                         Title
@@ -109,36 +109,7 @@ class GuttersGrid extends React.Component {
                     </div>
                 </Grid>
                 <div className="content">
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
-                    <p>hello world!</p>
+
                 </div>
                 <style jsx>
                     {`
@@ -154,10 +125,20 @@ class GuttersGrid extends React.Component {
                             overflow-y: auto;
                             border-right: 1px solid #ccc;
                         }
+                        .sidebar p {
+                            margin: 0;
+                            padding-left: 20px;
+                            height: 64px;
+                            line-height: 64px;
+                            color: rgba(0, 0, 0, 0.54);
+                            font-weight: 600;
+                            border-bottom: 1px solid #ccc;
+                        }
                         .tag {
                             position: fixed;
                             width: 80%
                             right: 0;
+                            top: 0px;
                             z-index: 2;
                         }
                         .content {
