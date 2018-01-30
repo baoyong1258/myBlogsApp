@@ -25,13 +25,47 @@ const styles = theme => ({
         height: 140,
         width: 100,
     },
+    nested: {
+        paddingLeft: 20,
+    },
 });
 
 class GuttersGrid extends React.Component {
-    state = { open: true };
+    state = {
+        open: true,
+        dataList: [
+            {
+                title: 'type1',
+                children: [
+                    {
+                        title: 'child1',
+                        children: [],
+                    }
+                ],
+                open: false,
+            },{
+                title: 'type2',
+                children: [
+                    {
+                        title: 'child1',
+                        children: [],
+                    }
+                ],
+                open: false,
+            }
+        ],
+    };
 
-    handleClick = () => {
-        this.setState({ open: !this.state.open });
+    handleClick = (event) => {
+        let target = event.currentTarget;
+        let index = target.dataset.index;
+        this.setState({ dataList: this.state.dataList.map((item, i) => {
+            if(i == index){
+                item.open = !item.open;
+            }
+            return item;
+            })
+        });
     };
 
     render(){
@@ -41,108 +75,23 @@ class GuttersGrid extends React.Component {
                 <Grid>
                     <div className="box sidebar">
                         <List className={classes.root} subheader={<ListSubheader>Nested List Items</ListSubheader>}>
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <SendIcon />
-                                </ListItemIcon>
-                                <ListItemText inset primary="Sent mail" />
-                            </ListItem>
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <DraftsIcon />
-                                </ListItemIcon>
-                                <ListItemText inset primary="Drafts" />
-                            </ListItem>
-                            <ListItem button onClick={this.handleClick}>
-                                <ListItemIcon>
-                                    <InboxIcon />
-                                </ListItemIcon>
-                                <ListItemText inset primary="Inbox" />
-                                {this.state.open ? <ExpandLess /> : <ExpandMore />}
-                            </ListItem>
-                            <Collapse component="li" in={this.state.open} timeout="auto" unmountOnExit>
-                                <List disablePadding>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
+                            {this.state.dataList.map((item, index) =>
+                                <div key={index}>
+                                    <ListItem button onClick={this.handleClick} data-index={index} >
+                                        <ListItemText primary={item.title}/>
+                                        {item.open ? <ExpandLess /> : <ExpandMore />}
                                     </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-                                    <ListItem button className={classes.nested}>
-                                        <ListItemIcon>
-                                            <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText inset primary="Starred" />
-                                    </ListItem>
-
-                                </List>
-                            </Collapse>
+                                    {item.children.map((child, i) =>
+                                        <Collapse in={item.open} timeout="auto" unmountOnExit key={i}>
+                                            <List component="div" disablePadding>
+                                                <ListItem button>
+                                                    <ListItemText inset primary={child.title}/>
+                                                </ListItem>
+                                            </List>
+                                        </Collapse>
+                                    )}
+                                </div>
+                                )}
                         </List>
                     </div>
                 </Grid>
