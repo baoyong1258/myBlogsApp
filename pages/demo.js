@@ -1,177 +1,76 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Link from 'next/link';
-// List
-import ListSubheader from 'material-ui/List/ListSubheader';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Collapse from 'material-ui/transitions/Collapse';
-import InboxIcon from 'material-ui-icons/MoveToInbox';
-import DraftsIcon from 'material-ui-icons/Drafts';
-import SendIcon from 'material-ui-icons/Send';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
-import StarBorder from 'material-ui-icons/StarBorder';
-// AppBar
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
+import Button from 'material-ui/Button';
+import Dialog, {
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+} from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
+import withRoot from '../src/withRoot';
+import Link from 'next/link';
 
 const styles = theme => ({
     root: {
-        flexGrow: 1,
-    },
-    paper: {
-        height: 140,
-        width: 100,
-    },
-    nested: {
-        paddingLeft: 20,
+        textAlign: 'center',
+        paddingTop: theme.spacing.unit * 20,
     },
 });
 
-const PostLink = (props) => (
-    <Link as={`/p/${props.title}`} href={`/post?title=${props.title}`}>
-        <a>{props.title}</a>
-    </Link>
-)
-
-class GuttersGrid extends React.Component {
+class Index extends React.Component {
     state = {
-        open: true,
-        dataList: [
-            {
-                title: 'type1',
-                children: [
-                    {
-                        title: 'child1',
-                        children: [],
-                    }
-                ],
-                open: false,
-            },{
-                title: 'type2',
-                children: [
-                    {
-                        title: 'child2',
-                        children: [],
-                    }
-                ],
-                open: false,
-            }
-        ],
+        open: false,
     };
 
-    handleClick = (event) => {
-        let target = event.currentTarget;
-        let index = target.dataset.index;
-        this.setState({ dataList: this.state.dataList.map((item, i) => {
-            if(i == index){
-                item.open = !item.open;
-            }
-            return item;
-            })
+    handleClose = () => {
+        this.setState({
+            open: false,
         });
     };
 
-    render(){
-        const classes = this.props;
+    handleClick = () => {
+        this.setState({
+            open: true,
+        });
+    };
+
+    render() {
+        const { classes } = this.props;
+        const { open } = this.state;
+
         return (
-            <Grid container spacing={0} className="container">
-                <Grid>
-                    <div className="box sidebar">
-                        <List className={classes.root} subheader={<p className={classes.subheader}>by</p>}>
-                            {this.state.dataList.map((item, index) =>
-                                <div key={index}>
-                                    <ListItem button onClick={this.handleClick} data-index={index} >
-                                        <ListItemText primary={item.title}/>
-                                        {item.open ? <ExpandLess /> : <ExpandMore />}
-                                    </ListItem>
-                                    {item.children.map((child, i) =>
-                                        <Collapse in={item.open} timeout="auto" unmountOnExit key={i}>
-                                            <List component="div" disablePadding>
-                                                <ListItem button>
-                                                    <PostLink title={child.title}></PostLink>
-                                                    {/*<ListItemText inset primary={child.title}/>*/}
-                                                </ListItem>
-                                            </List>
-                                        </Collapse>
-                                    )}
-                                </div>
-                                )}
-                        </List>
-                    </div>
-                </Grid>
-                <Grid>
-                    <div className="box tag">
-                        <div className={classes.root}>
-                            <AppBar position="static" color="primary" id="appBar">
-                                <Toolbar>
-                                    <Typography type="title" color="inherit">
-                                        Title
-                                    </Typography>
-                                </Toolbar>
-                            </AppBar>
-                        </div>
-                    </div>
-                </Grid>
-                <div className="content">
-
-                </div>
-                <style jsx>
-                    {`
-                        .container {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                        }
-                        .sidebar {
-                            position: fixed;
-                            height: 100%;
-                            width: 20%;
-                            overflow-y: auto;
-                            border-right: 1px solid #ccc;
-                        }
-                        .sidebar p {
-                            margin: 0;
-                            padding-left: 20px;
-                            height: 64px;
-                            line-height: 64px;
-                            color: rgba(0, 0, 0, 0.54);
-                            font-weight: 600;
-                            border-bottom: 1px solid #ccc;
-                        }
-                        .tag {
-                            position: fixed;
-                            width: 80%
-                            right: 0;
-                            top: 0px;
-                            z-index: 2;
-                        }
-                        .content {
-                            box-sizing: border-box;
-                            position: absolute;
-                            top: 64px;
-                            left: 20%;
-                            width: 80%
-                            padding: 30px 50px 20px 50px;
-                        }
-                    `}
-                </style>
-                <style global jsx>{`
-                    html,body {
-                        margin: 0px;
-                        height: 100%;
-                    }
-                `}</style>
-            </Grid>
-        )
+            <div className={classes.root}>
+                <Dialog open={open} onClose={this.handleClose}>
+                    <DialogTitle>Super Secret Password</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>1-2-3-4-5</DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button color="primary" onClick={this.handleClose}>
+                            OK
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                <Typography type="display1" gutterBottom>
+                    Material-UI
+                </Typography>
+                <Typography type="subheading" gutterBottom>
+                    example project
+                </Typography>
+                <Button raised color="secondary" onClick={this.handleClick}>
+                    Super Secret Password
+                </Button>
+                <Link href="/demo"><a>demo</a></Link>
+                <hr/>
+            </div>
+        );
     }
-};
+}
 
-GuttersGrid.propTypes = {
+Index.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(GuttersGrid);
+export default withRoot(withStyles(styles)(Index));
