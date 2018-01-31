@@ -111,20 +111,20 @@ class GuttersGrid extends React.Component {
         });
     };
 
-    componentDidMount() {
-        console.log(location);
-        console.log('--- this ---');
-        let pathname = location.pathname;
-        let PathnameArr = pathname.split('/').filter(item => !!item);
-        let firstPathname = PathnameArr[0];
-        this.setState({ dataList: this.state.dataList.map((item, i) => {
-            if(item.title == firstPathname){
-                item.open = true;
-            }
-            return item;
-        })
-        });
-    }
+    // componentDidMount() {
+    //     console.log(location);
+    //     console.log('--- this ---');
+    //     let pathname = location.pathname;
+    //     let PathnameArr = pathname.split('/').filter(item => !!item);
+    //     let firstPathname = PathnameArr[0];
+    //     this.setState({ dataList: this.state.dataList.map((item, i) => {
+    //         if(item.title == firstPathname){
+    //             item.open = true;
+    //         }
+    //         return item;
+    //     })
+    //     });
+    // }
 
     render(){
         const classes = this.props;
