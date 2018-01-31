@@ -43,20 +43,15 @@ class GuttersGrid extends React.Component {
         open: true,
         dataList: [
             {
-                title: 'type1',
+                title: 'child',
                 children: [
                     {
-                        title: 'child1',
+                        title: 'index',
                         children: [],
-                        url: '/child/demo',
-                    }
-                ],
-                open: false,
-            },{
-                title: 'type2',
-                children: [
+                        url: '/child'
+                    },
                     {
-                        title: 'child2',
+                        title: 'demo',
                         children: [],
                         url: '/child/demo',
                     }
@@ -99,6 +94,7 @@ class GuttersGrid extends React.Component {
     };
 
     render(){
+        console.log(this.props);
         const classes = this.props;
         return (
             <Grid container spacing={0} className="container">
@@ -132,7 +128,7 @@ class GuttersGrid extends React.Component {
                             <AppBar position="static" color="primary" id="appBar">
                                 <Toolbar>
                                     <Typography type="title" color="inherit">
-                                        Title
+                                        {this.props.title}
                                     </Typography>
                                 </Toolbar>
                             </AppBar>
