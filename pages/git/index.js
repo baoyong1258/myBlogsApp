@@ -9,11 +9,6 @@ export default () =>
                 <p>
                     git是代码版本管理工具
                 </p>
-                <style jsx>{`
-                    h2 {
-                        {/*color: blue;*/}
-                    }
-                `}</style>
             </div>
         </Frame>
     </Layout>
