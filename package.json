@@ -21,6 +21,13 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-jss": "latest"
+    "react-jss": "latest",
+    "sass-loader": "^6.0.6"
+  },
+  "devDependencies": {
+    "babel-plugin-css-modules-transform": "^1.2.7",
+    "node-sass": "^4.5.3",
+    "postcss": "^6.0.13",
+    "postcss-cssnext": "^3.0.2"
   }
 }
