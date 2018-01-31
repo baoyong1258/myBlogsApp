@@ -77,6 +77,24 @@ class GuttersGrid extends React.Component {
                     }
                 ],
                 open: false,
+            },{
+                title: 'git',
+                children: [
+                    {
+                        title: 'git的概述',
+                        children: [],
+                        url: '/git',
+                    },{
+                        title: 'git基础',
+                        children: [],
+                        url: '/git/basics',
+                    },{
+                        title: 'git原理',
+                        children: [],
+                        url: '/git/theory',
+                    }
+                ],
+                open: false,
             }
         ],
     };
@@ -93,8 +111,22 @@ class GuttersGrid extends React.Component {
         });
     };
 
+    componentDidMount() {
+        console.log(location);
+        console.log('--- this ---');
+        let pathname = location.pathname;
+        let PathnameArr = pathname.split('/').filter(item => !!item);
+        let firstPathname = PathnameArr[0];
+        this.setState({ dataList: this.state.dataList.map((item, i) => {
+            if(item.title == firstPathname){
+                item.open = true;
+            }
+            return item;
+        })
+        });
+    }
+
     render(){
-        console.log(this.props);
         const classes = this.props;
         return (
             <Grid container spacing={0} className="container">
@@ -111,7 +143,10 @@ class GuttersGrid extends React.Component {
                                         <Collapse in={item.open} timeout="auto" unmountOnExit key={i}>
                                             <List component="div" disablePadding>
                                                 <ListItem button>
-                                                    <PostLink title={child.title} url={child.url}></PostLink>
+                                                    <Link href={child.url}>
+                                                        <a className="link">{child.title}</a>
+                                                    </Link>
+                                                    {/*<PostLink title={child.title} url={child.url} className="postlink"></PostLink>*/}
                                                     {/*<ListItemText inset primary={child.title}/>*/}
                                                 </ListItem>
                                             </List>
@@ -167,6 +202,13 @@ class GuttersGrid extends React.Component {
                             right: 0;
                             top: 0px;
                             z-index: 2;
+                        }
+                        a.link {
+                            display: block;
+                            width: 100%;
+                            padding-left: 20px;
+                            text-decoration: none;
+                            color: rgba(0, 0, 0, 0.5);
                         }
                         .content {
                             box-sizing: border-box;
