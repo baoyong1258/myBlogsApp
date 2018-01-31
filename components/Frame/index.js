@@ -58,26 +58,6 @@ class GuttersGrid extends React.Component {
                 ],
                 open: false,
             },{
-                title: 'router',
-                children: [
-                    {
-                        title: 'index',
-                        children: [],
-                        url: '/router',
-                    }
-                ],
-                open: false,
-            },{
-                title: 'post',
-                children: [
-                    {
-                        title: 'post',
-                        children: [],
-                        url: '/post',
-                    }
-                ],
-                open: false,
-            },{
                 title: 'git',
                 children: [
                     {
