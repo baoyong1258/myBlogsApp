@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Link from 'next/link';
+// redux
+import { connect } from 'react-redux';
+import { changeOpen } from '../../actions';
 
 // List
 import ListSubheader from 'material-ui/List/ListSubheader';
@@ -19,6 +22,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -32,153 +36,59 @@ const styles = theme => ({
     },
 });
 
-const PostLink = (props) => (
-    <Link href={props.url}>
-        <a>{props.title}</a>
-    </Link>
-)
 
 class GuttersGrid extends React.Component {
-    state = {
-        open: true,
-        dataList: [
-            {
-                title: 'child',
-                children: [
-                    {
-                        title: 'index',
-                        children: [],
-                        url: '/child'
-                    },
-                    {
-                        title: 'demo',
-                        children: [],
-                        url: '/child/demo',
-                    }
-                ],
-                open: false,
-            },{
-                title: 'git',
-                children: [
-                    {
-                        title: 'git的概述',
-                        children: [],
-                        url: '/git',
-                    },{
-                        title: 'git基础',
-                        children: [],
-                        url: '/git/basics',
-                    },{
-                        title: 'git原理',
-                        children: [],
-                        url: '/git/theory',
-                    }
-                ],
-                open: false,
-            },{
-                title: 'router',
-                children: [
-                    {
-                        title: 'index',
-                        children: [],
-                        url: '/router',
-                    },{
-                        title: 'first',
-                        children: [],
-                        url: '/router?type=first',
-                    }
-                ],
-                open: false,
-            },{
-                title: 'checkout',
-                children: [
-                    {
-                        title: 'index',
-                        children: [],
-                        url: '/router?type=checkout',
-                    }
-                ],
-                open: false,
-            }
-        ],
-    };
-
-    handleClick = (event) => {
-        let target = event.currentTarget;
-        let index = target.dataset.index;
-        this.setState({ dataList: this.state.dataList.map((item, i) => {
-            if(i == index){
-                item.open = !item.open;
-            }
-            return item;
-        })
-        });
-    };
-
-    // componentDidMount() {
-    //     console.log(location);
-    //     console.log('--- this ---');
-    //     let pathname = location.pathname;
-    //     let PathnameArr = pathname.split('/').filter(item => !!item);
-    //     let firstPathname = PathnameArr[0];
-    //     this.setState({ dataList: this.state.dataList.map((item, i) => {
-    //         if(item.title == firstPathname){
-    //             item.open = true;
-    //         }
-    //         return item;
-    //     })
-    //     });
-    // }
 
     render(){
         const classes = this.props;
         return (
-            <Grid container spacing={0} className="container">
-                <Grid>
-                    <div className="box sidebar">
-                        <List className={classes.root} subheader={<p className={classes.subheader}>by</p>}>
-                            {this.state.dataList.map((item, index) =>
-                                <div key={index}>
-                                    <ListItem button onClick={this.handleClick} data-index={index} >
-                                        <ListItemText primary={item.title}/>
-                                        {item.open ? <ExpandLess /> : <ExpandMore />}
-                                    </ListItem>
-                                    {item.children.map((child, i) =>
-                                        <Collapse in={item.open} timeout="auto" unmountOnExit key={i}>
-                                            <List component="div" disablePadding>
-                                                <ListItem button>
-                                                    <Link href={child.url}>
-                                                        <a className="link">{child.title}</a>
-                                                    </Link>
-                                                    {/*<PostLink title={child.title} url={child.url} className="postlink"></PostLink>*/}
-                                                    {/*<ListItemText inset primary={child.title}/>*/}
-                                                </ListItem>
-                                            </List>
-                                        </Collapse>
-                                    )}
-                                </div>
-                            )}
-                        </List>
-                    </div>
-                </Grid>
-                <Grid>
-                    <div className="box tag">
-                        <div className={classes.root}>
-                            <AppBar position="static" color="primary" id="appBar">
-                                <Toolbar>
-                                    <Typography type="title" color="inherit">
-                                        {this.props.title}
-                                    </Typography>
-                                </Toolbar>
-                            </AppBar>
+                <Grid container spacing={0} className="container">
+                    <Grid>
+                        <div className="box sidebar">
+                            <List className={classes.root} subheader={<p className={classes.subheader}>by</p>}>
+                                {this.props.dataList.map((item, index) =>
+                                    <div key={index}>
+                                        <ListItem button onClick={() => {this.props.onChangeOpenClick(item.title)}} data-index={index} >
+                                            <ListItemText primary={item.title}/>
+                                            {item.open ? <ExpandLess /> : <ExpandMore />}
+                                        </ListItem>
+                                        {item.children.map((child, i) =>
+                                            <Collapse in={item.open} timeout="auto" unmountOnExit key={i}>
+                                                <List component="div" disablePadding>
+                                                    <ListItem button>
+                                                        <Link href={child.url}>
+                                                            <a className="link">{child.title}</a>
+                                                        </Link>
+                                                        {/*<PostLink title={child.title} url={child.url} className="postlink"></PostLink>*/}
+                                                        {/*<ListItemText inset primary={child.title}/>*/}
+                                                    </ListItem>
+                                                </List>
+                                            </Collapse>
+                                        )}
+                                    </div>
+                                )}
+                            </List>
                         </div>
+                    </Grid>
+                    <Grid>
+                        <div className="box tag">
+                            <div className={classes.root}>
+                                <AppBar position="static" color="primary" id="appBar">
+                                    <Toolbar>
+                                        <Typography type="title" color="inherit">
+                                            {this.props.title}
+                                        </Typography>
+                                    </Toolbar>
+                                </AppBar>
+                            </div>
+                        </div>
+                    </Grid>
+                    <div className="content">
+                        {this.props.children}
+                        <button onClick={() => {console.log(this)}}>click me</button>
                     </div>
-                </Grid>
-                <div className="content">
-                    {this.props.children}
-                </div>
-                <style jsx>
-                    {`
+                    <style jsx>
+                        {`
                         .container {
                             position: absolute;
                             top: 0;
@@ -223,14 +133,14 @@ class GuttersGrid extends React.Component {
                             padding: 30px 50px 20px 50px;
                         }
                     `}
-                </style>
-                <style global jsx>{`
+                    </style>
+                    <style global jsx>{`
                     html,body {
                         margin: 0px;
                         height: 100%;
                     }
                 `}</style>
-            </Grid>
+                </Grid>
         )
     }
 };
@@ -239,4 +149,17 @@ GuttersGrid.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(GuttersGrid);
+const mapStateToProps = (state, ownProps) => ({
+    dataList: state.dataList
+})
+const mapDispatchToProps = {
+    onChangeOpenClick: changeOpen
+}
+
+const FilterLink = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(GuttersGrid)
+
+
+export default withStyles(styles)(FilterLink);

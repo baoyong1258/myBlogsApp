@@ -18,10 +18,12 @@
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-beta.17",
     "next": "latest",
-    "prop-types": "latest",
+    "prop-types": "^15.6.0",
     "react": "latest",
     "react-dom": "latest",
     "react-jss": "latest",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "sass-loader": "^6.0.6"
   },
   "devDependencies": {
