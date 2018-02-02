@@ -85,7 +85,6 @@ class GuttersGrid extends React.Component {
                     </Grid>
                     <div className="content">
                         {this.props.children}
-                        <button onClick={() => {console.log(this)}}>click me</button>
                     </div>
                     <style jsx>
                         {`

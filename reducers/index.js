@@ -63,6 +63,20 @@ let initState = {
 
 export default (state = initState, action) => {
     switch(action.type){
+        case 'OPEN':
+            return {
+                ...state,
+                dataList: state.dataList.map(item => {
+                    if(item.title == action.linkType && !item.open){
+                        return {
+                            ...item,
+                            open: true,
+                        }
+                    }else {
+                        return item;
+                    }
+                })
+            }
         case 'CHANGE_OPNE':
             console.log(action.type);
             console.log(action.linkType);
