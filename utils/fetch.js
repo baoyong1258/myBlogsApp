@@ -1,6 +1,6 @@
 import 'isomorphic-unfetch';
-// import config from './constant';
-// let baseUrl = config.apiPrefix;
+import config from '../configs';
+let baseUrl = config.apiPrefix;
 // let baseUrl = 'http://localhost:8008';
 // let baseUrl = '';
 
