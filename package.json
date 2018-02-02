@@ -24,7 +24,8 @@
     "react-jss": "latest",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "sass-loader": "^6.0.6"
+    "sass-loader": "^6.0.6",
+    "isomorphic-unfetch": "^2.0.0"
   },
   "devDependencies": {
     "babel-plugin-css-modules-transform": "^1.2.7",
