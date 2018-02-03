@@ -6,12 +6,14 @@ let initState = {
                 {
                     title: 'index',
                     children: [],
-                    url: '/child'
+                    url: '/child',
+                    as: '/child'
                 },
                 {
                     title: 'demo',
                     children: [],
-                    url: '/child/demo',
+                    url: '/child?type=child&children=demo',
+                    as: '/child/demo'
                 }
             ],
             open: false,
@@ -21,11 +23,13 @@ let initState = {
                 {
                     title: 'git的概述',
                     children: [],
-                    url: '/git',
+                    url: '/child?type=git',
+                    as: '/git'
                 },{
                     title: 'git基础',
                     children: [],
                     url: '/git/basics',
+                    as: '/git/basics'
                 },{
                     title: 'git原理',
                     children: [],

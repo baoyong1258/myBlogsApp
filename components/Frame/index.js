@@ -56,7 +56,7 @@ class GuttersGrid extends React.Component {
                                             <Collapse in={item.open} timeout="auto" unmountOnExit key={i}>
                                                 <List component="div" disablePadding>
                                                     <ListItem button>
-                                                        <Link href={child.url}>
+                                                        <Link href={child.url} as={child.as}>
                                                             <a className="link">{child.title}</a>
                                                         </Link>
                                                         {/*<PostLink title={child.title} url={child.url} className="postlink"></PostLink>*/}
