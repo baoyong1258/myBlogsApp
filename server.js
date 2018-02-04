@@ -6,17 +6,22 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+let routerMap = {
+    ['/child']: '',
+    ['/child/:childType']: '',
+    ['/git']: '',
+    ['/git/:childType']: '',
+}
+
 app.prepare()
     .then(() => {
         const server = express()
 
-        server.get('/git', (req, res) => {
-            return app.render(req, res, '/child', req.query)
-        })
-
-        server.get('/b', (req, res) => {
-            return app.render(req, res, '/a', req.query)
-        })
+        for(var key in routerMap){
+            server.get(key, (req, res) => {
+                return app.render(req, res, routerMap[key])
+            })
+        }
 
         server.get('/posts/:id', (req, res) => {
             return app.render(req, res, '/posts', { id: req.params.id })
