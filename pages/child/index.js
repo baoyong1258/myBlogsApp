@@ -89,7 +89,7 @@ class Child extends React.Component {
         return {
             name: pathArr[0],
             message: 'i am ' + pathArr[0],
-            linkType: 'child',
+            linkType: pathArr[0],
             linkTypeArr: response,
         };
     }
@@ -103,7 +103,6 @@ class Child extends React.Component {
                 <Frame title={name}>
                     <Children message={message} linkType={linkType}>
                         <Son name={name}></Son>
-                        <div>child page !</div>
                     </Children>
                 </Frame>
             </Layout>
