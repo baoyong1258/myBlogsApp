@@ -33,13 +33,15 @@ class Child extends React.Component {
         name: 'child',
         message: 'i am child',
         linkType: 'child',
+        dataList: [],
     }
     static async getInitialProps(obj){
         console.log('--- obj ---');
         console.log(obj);
         console.log(obj.asPath);
+        let dataList
         if(obj.res){
-            let dataList = [
+            dataList = [
                 {
                     title: 'child',
                     children: [
@@ -91,16 +93,39 @@ class Child extends React.Component {
             message: 'i am ' + pathArr[0],
             linkType: pathArr[0],
             linkTypeArr: response,
+            dataList: dataList
         };
     }
     componentDidMount() {
-        Promise.resolve().then(() => {console.log(this.state)});
+        console.log('--- componentDidMount ---');
+        Promise.resolve().then(() => {
+            this.setState({dataList: this.props.dataList});
+            console.log(this.state);
+            console.log(this.props);
+        });
+    }
+    changeDataList(linkType){
+      this.setState({
+          dataList: this.state.dataList.map(item => {
+              if(item.title == linkType){
+                  return {
+                      ...item,
+                      open: !item.open,
+                  }
+              }else {
+                  return {
+                      ...item,
+                      open: false,
+                  };
+              }
+          })
+      })
     }
     render(){
-        let { name,message,linkType } = this.props;
+        let { name,message,linkType,dataList } = this.props;
         return (
             <Layout title={name}>
-                <Frame title={name}>
+                <Frame title={name} dataList={this.state.dataList.length > 0 ? this.state.dataList : dataList} changeDataList={this.changeDataList.bind(this)}>
                     <Children message={message} linkType={linkType}>
                         <Son name={name}></Son>
                     </Children>

@@ -51,7 +51,7 @@ class GuttersGrid extends React.Component {
                             <List className={classes.root} subheader={<p className={classes.subheader}>by</p>}>
                                 {this.props.dataList.map((item, index) =>
                                     <div key={index}>
-                                        <ListItem button onClick={() => {this.props.changeOpenClock(item.title)}} data-index={index} >
+                                        <ListItem button onClick={() => {this.props.changeDataList(item.title)}} data-index={index} >
                                             <ListItemText primary={item.title}/>
                                             {item.open ? <ExpandLess /> : <ExpandMore />}
                                         </ListItem>
@@ -151,18 +151,19 @@ GuttersGrid.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ dataList }) => ({ dataList })
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        changeOpenClock: bindActionCreators(changeOpenClock, dispatch)
-    }
-}
-
-const FilterLink = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(GuttersGrid)
-
-
-export default withStyles(styles)(FilterLink);
+// const mapStateToProps = ({ dataList }) => ({ dataList })
+//
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         changeOpenClock: bindActionCreators(changeOpenClock, dispatch)
+//     }
+// }
+//
+// const FilterLink = connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(GuttersGrid)
+//
+//
+// export default withStyles(styles)(FilterLink);
+export default withStyles(styles)(GuttersGrid);
