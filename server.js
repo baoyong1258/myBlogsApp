@@ -7,10 +7,9 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 let routerMap = {
-    ['/child']: '',
-    ['/child/:childType']: '',
-    ['/git']: '',
-    ['/git/:childType']: '',
+    ['/child/:childType']: '/child',
+    ['/git']: '/child',
+    ['/git/:childType']: '/child',
 }
 
 app.prepare()

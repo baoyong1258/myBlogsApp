@@ -1,146 +1,37 @@
-import React from 'react';
-import Layout from '../components/Layout';
-import Frame from '../components/Frame';
-import Children from '../components/Children';
-import { getData,getSidebarDate } from '../api/getData';
-import Router from 'next/router';
-
-// redux
+import React from 'react'
 import { bindActionCreators } from 'redux'
-import { initStore, changeOpenClock, OpenInit, replaceClick } from '../../store2'
+import { initStore, startClock, addCount, serverRenderClock } from '../../store'
 import withRedux from 'next-redux-wrapper'
+import Page from '../../components/Page'
 
+class Counter extends React.Component {
+  static getInitialProps ({ store, isServer }) {
+    store.dispatch(serverRenderClock(isServer))
+    store.dispatch(addCount())
 
-Router.onRouteChangeStart = url => {
-    console.log('App is changing to: ', url)
-    console.dir(Child);
+    return { isServer }
+  }
 
-}
+  componentDidMount () {
+    this.timer = this.props.startClock()
+  }
 
-function Son({name}) {
-    switch (name){
-        case 'child':
-            return <p>child page !</p>
-        case 'git':
-            return <p>git page !</p>
-        default:
-            return <p>default page !</p>
-    }
-}
+  componentWillUnmount () {
+    clearInterval(this.timer)
+  }
 
-class Child extends React.Component {
-    state = {
-        name: 'child',
-        message: 'i am child',
-        linkType: 'child',
-        dataList: [],
-    }
-    static async getInitialProps(obj){
-        console.log('--- obj ---');
-        console.log(obj);
-        console.log(obj.asPath);
-        let dataList
-        if(obj.res){
-            dataList = [
-                {
-                    title: 'child',
-                    children: [
-                        {
-                            title: 'index',
-                            children: [],
-                            url: '/child',
-                            as: '/child'
-                        },
-                        {
-                            title: 'demo',
-                            children: [],
-                            url: '/child?type=child&children=demo',
-                            as: '/child/demo'
-                        }
-                    ],
-                    open: false,
-                },
-                {
-                    title: 'git',
-                    children: [
-                        {
-                            title: 'git的概述',
-                            children: [],
-                            url: '/child?type=git',
-                            as: '/git'
-                        },{
-                            title: 'git基础',
-                            children: [],
-                            url: '/git/basics',
-                            as: '/git/basics'
-                        },{
-                            title: 'git原理',
-                            children: [],
-                            url: '/git/theory',
-                        }
-                    ],
-                    open: false,
-                }
-            ];
-            obj.store.dispatch(replaceClick(dataList))
-        }
-        const response = await getSidebarDate();
-        // console.log('--- Router ---');
-        // console.log(Router);
-        let pathArr = obj.asPath.split('/').filter(item => !!item);
-        return {
-            name: pathArr[0],
-            message: 'i am ' + pathArr[0],
-            linkType: pathArr[0],
-            linkTypeArr: response,
-            dataList: dataList
-        };
-    }
-    componentDidMount() {
-        console.log('--- componentDidMount ---');
-        Promise.resolve().then(() => {
-            this.setState({dataList: this.props.dataList});
-            console.log(this.state);
-            console.log(this.props);
-        });
-    }
-    changeDataList(linkType){
-        this.setState({
-            dataList: this.state.dataList.map(item => {
-                if(item.title == linkType){
-                    return {
-                        ...item,
-                        open: !item.open,
-                    }
-                }else {
-                    return {
-                        ...item,
-                        open: false,
-                    };
-                }
-            })
-        })
-    }
-    render(){
-        let { name,message,linkType,dataList } = this.props;
-        return (
-            <Layout title={name}>
-              <Frame title={name} dataList={this.state.dataList.length > 0 ? this.state.dataList : dataList} changeDataList={this.changeDataList.bind(this)}>
-                <Children message={message} linkType={linkType}>
-                  <Son name={name}></Son>
-                </Children>
-              </Frame>
-            </Layout>
-        )
-    }
+  render () {
+    return (
+      <Page title='Index Page' linkTo='/other' />
+    )
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        changeOpenClock: bindActionCreators(changeOpenClock, dispatch),
-        OpenInit: bindActionCreators(OpenInit, dispatch),
-        replaceClick: bindActionCreators(replaceClick, dispatch),
-    }
+  return {
+    addCount: bindActionCreators(addCount, dispatch),
+    startClock: bindActionCreators(startClock, dispatch)
+  }
 }
 
-export default withRedux(initStore, null, mapDispatchToProps)(Child)
+export default withRedux(initStore, null, mapDispatchToProps)(Counter)
