@@ -36,9 +36,9 @@ class Child extends React.Component {
         dataList: [],
     }
     static async getInitialProps(obj){
-        console.log('--- obj ---');
+        console.log('getInitialProps obj');
         console.log(obj);
-        console.log(obj.asPath);
+        let pathArr = obj.asPath.replace('?','/').split('/').filter(item => !!item);
         let dataList
         if(obj.res){
             dataList = [
@@ -71,7 +71,7 @@ class Child extends React.Component {
                         },{
                             title: 'git基础',
                             children: [],
-                            url: '/git/basics',
+                            url: '/git?type=git&children=basics',
                             as: '/git/basics'
                         },{
                             title: 'git原理',
@@ -82,12 +82,21 @@ class Child extends React.Component {
                     open: false,
                 }
             ];
-            obj.store.dispatch(replaceClick(dataList))
+            dataList = dataList.map(item => {
+                if(item.title == pathArr){
+                    return {
+                        ...item,
+                        open: true,
+                    }
+                }else {
+                    return item;
+                }
+            })
+            obj.store.dispatch(replaceClick(dataList));
         }
         const response = await getSidebarDate();
         // console.log('--- Router ---');
         // console.log(Router);
-        let pathArr = obj.asPath.split('/').filter(item => !!item);
         return {
             name: pathArr[0],
             message: 'i am ' + pathArr[0],
