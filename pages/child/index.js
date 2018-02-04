@@ -88,6 +88,8 @@ class Child extends React.Component {
         let pathArr = obj.asPath.split('/').filter(item => !!item);
         return {
             name: pathArr[0],
+            message: 'i am ' + pathArr[0],
+            linkType: 'child',
             linkTypeArr: response,
         };
     }
@@ -95,8 +97,7 @@ class Child extends React.Component {
         Promise.resolve().then(() => {console.log(this.state)});
     }
     render(){
-        let { message,linkType } = this.state;
-        let { name } = this.props;
+        let { name,message,linkType } = this.props;
         return (
             <Layout title={name}>
                 <Frame title={name}>
