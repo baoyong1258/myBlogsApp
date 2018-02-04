@@ -5,7 +5,10 @@ import Grid from 'material-ui/Grid';
 import Link from 'next/link';
 // redux
 import { connect } from 'react-redux';
-import { changeOpen } from '../../actions';
+import { bindActionCreators } from 'redux'
+import { changeOpenClock } from '../../store2'
+
+
 
 // List
 import ListSubheader from 'material-ui/List/ListSubheader';
@@ -48,7 +51,7 @@ class GuttersGrid extends React.Component {
                             <List className={classes.root} subheader={<p className={classes.subheader}>by</p>}>
                                 {this.props.dataList.map((item, index) =>
                                     <div key={index}>
-                                        <ListItem button onClick={() => {this.props.onChangeOpenClick(item.title)}} data-index={index} >
+                                        <ListItem button onClick={() => {this.props.changeOpenClock(item.title)}} data-index={index} >
                                             <ListItemText primary={item.title}/>
                                             {item.open ? <ExpandLess /> : <ExpandMore />}
                                         </ListItem>
@@ -148,11 +151,12 @@ GuttersGrid.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-    dataList: state.dataList
-})
-const mapDispatchToProps = {
-    onChangeOpenClick: changeOpen
+const mapStateToProps = ({ dataList }) => ({ dataList })
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeOpenClock: bindActionCreators(changeOpenClock, dispatch)
+    }
 }
 
 const FilterLink = connect(

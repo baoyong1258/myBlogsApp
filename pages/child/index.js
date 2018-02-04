@@ -5,6 +5,12 @@ import Children from '../../components/Children';
 import { getData,getSidebarDate } from '../../api/getData';
 import Router from 'next/router';
 
+// redux
+import { bindActionCreators } from 'redux'
+import { initStore, changeOpenClock, OpenInit, replaceClick } from '../../store2'
+import withRedux from 'next-redux-wrapper'
+
+
 Router.onRouteChangeStart = url => {
     console.log('App is changing to: ', url)
     console.dir(Child);
@@ -32,6 +38,50 @@ class Child extends React.Component {
         console.log('--- obj ---');
         console.log(obj);
         console.log(obj.asPath);
+        if(obj.res){
+            let dataList = [
+                {
+                    title: 'child',
+                    children: [
+                        {
+                            title: 'index',
+                            children: [],
+                            url: '/child',
+                            as: '/child'
+                        },
+                        {
+                            title: 'demo',
+                            children: [],
+                            url: '/child?type=child&children=demo',
+                            as: '/child/demo'
+                        }
+                    ],
+                    open: false,
+                },
+                {
+                    title: 'git',
+                    children: [
+                        {
+                            title: 'git的概述',
+                            children: [],
+                            url: '/child?type=git',
+                            as: '/git'
+                        },{
+                            title: 'git基础',
+                            children: [],
+                            url: '/git/basics',
+                            as: '/git/basics'
+                        },{
+                            title: 'git原理',
+                            children: [],
+                            url: '/git/theory',
+                        }
+                    ],
+                    open: false,
+                }
+            ];
+            obj.store.dispatch(replaceClick(dataList))
+        }
         const response = await getSidebarDate();
         // console.log('--- Router ---');
         // console.log(Router);
@@ -52,6 +102,7 @@ class Child extends React.Component {
                 <Frame title={name}>
                     <Children message={message} linkType={linkType}>
                         <Son name={name}></Son>
+                        <div>child page !</div>
                     </Children>
                 </Frame>
             </Layout>
@@ -59,4 +110,12 @@ class Child extends React.Component {
     }
 }
 
-export default Child;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeOpenClock: bindActionCreators(changeOpenClock, dispatch),
+        OpenInit: bindActionCreators(OpenInit, dispatch),
+        replaceClick: bindActionCreators(replaceClick, dispatch),
+    }
+}
+
+export default withRedux(initStore, null, mapDispatchToProps)(Child)
