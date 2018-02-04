@@ -21,7 +21,7 @@ app.prepare()
 
         for(var key in routerMap){
             server.get(key, (req, res) => {
-                return app.render(req, res, routerMap[key])
+                return app.render(req, res, routerMap[key], req.query)
             })
         }
 
