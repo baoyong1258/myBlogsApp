@@ -106,14 +106,14 @@ class Child extends React.Component {
             dataList: dataList
         };
     }
-    componentDidMount() {
-        console.log('--- componentDidMount ---');
-        Promise.resolve().then(() => {
-            this.setState({dataList: this.props.dataList});
-            console.log(this.state);
-            console.log(this.props);
-        });
-    }
+    // componentDidMount() {
+    //     console.log('--- componentDidMount ---');
+    //     Promise.resolve().then(() => {
+    //         this.setState({dataList: this.props.dataList});
+    //         console.log(this.state);
+    //         console.log(this.props);
+    //     });
+    // }
     changeDataList(linkType){
         this.setState({
             dataList: this.state.dataList.map(item => {
@@ -132,10 +132,10 @@ class Child extends React.Component {
         })
     }
     render(){
-        let { name,message,linkType,dataList } = this.props;
+        let { name,message,linkType } = this.props;
         return (
             <Layout title={name}>
-                <Frame title={name} dataList={this.state.dataList.length > 0 ? this.state.dataList : dataList} changeDataList={this.changeDataList.bind(this)}>
+                <Frame title={name}>
                     <Children message={message} linkType={linkType}>
                         <Son name={name}></Son>
                     </Children>
