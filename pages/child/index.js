@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import Frame from '../../components/Frame';
 import Children from '../../components/Children';
-import { getData,getSidebarDate } from '../../api/getData';
+import { getData,getSidebarDate,addSidebarDate } from '../../api/getData';
 import Router from 'next/router';
 
 // redux
@@ -42,7 +42,7 @@ class Child extends React.Component {
         console.log('pathArr', pathArr);
         let dataList
 
-        if(obj.res){
+        // if(obj.res){
             dataList = await getSidebarDate();
             dataList = dataList.map(item => {
                 if(item.title == pathArr[0]){
@@ -55,60 +55,6 @@ class Child extends React.Component {
                 }
             })
             obj.store.dispatch(replaceClick(dataList));
-        }
-        // if(obj.res){
-        //     dataList = [
-        //         {
-        //             title: 'child',
-        //             children: [
-        //                 {
-        //                     title: 'index',
-        //                     children: [],
-        //                     url: '/child',
-        //                     as: '/child'
-        //                 },
-        //                 {
-        //                     title: 'demo',
-        //                     children: [],
-        //                     url: '/child?type=child&children=demo',
-        //                     as: '/child/demo'
-        //                 }
-        //             ],
-        //             open: false,
-        //         },
-        //         {
-        //             title: 'git',
-        //             children: [
-        //                 {
-        //                     title: 'git的概述',
-        //                     children: [],
-        //                     url: '/child?type=git',
-        //                     as: '/git'
-        //                 },{
-        //                     title: 'git基础',
-        //                     children: [],
-        //                     url: '/child?type=git&children=basics',
-        //                     as: '/git/basics'
-        //                 },{
-        //                     title: 'git原理',
-        //                     children: [],
-        //                     url: '/git/theory',
-        //                 }
-        //             ],
-        //             open: false,
-        //         }
-        //     ];
-        //     dataList = dataList.map(item => {
-        //         if(item.title == pathArr[0]){
-        //             return {
-        //                 ...item,
-        //                 open: true,
-        //             }
-        //         }else {
-        //             return item;
-        //         }
-        //     })
-        //     obj.store.dispatch(replaceClick(dataList));
         // }
         return {
             name: pathArr[0],
@@ -142,6 +88,32 @@ class Child extends React.Component {
             })
         })
     }
+    addSidebarDate(){
+        let newSidebarData = {
+            "title": "child",
+            "children": [
+                {
+                    "title": "index",
+                    "children": [],
+                    "url": "/child",
+                    "as": "/child"
+                },
+                {
+                    "title": "demo",
+                    "children": [],
+                    "url": "/child?type=child&children=demo",
+                    "as": "/child/demo"
+                }
+            ],
+            "open": false
+        };
+        newSidebarData = JSON.stringify(newSidebarData);
+        // const newSidebarData = 'test';
+        addSidebarDate(newSidebarData).then((res) => {
+            console.log('添加sidebar成功');
+            console.log(res);
+        })
+    }
     render(){
         let { name,message,linkType,dataList } = this.props;
         return (
@@ -149,6 +121,7 @@ class Child extends React.Component {
                 <Frame title={name} dataList={this.state.dataList.length > 0 ? this.state.dataList : dataList} changeDataList={this.changeDataList.bind(this)}>
                     <Children message={message} linkType={linkType}>
                         <Son name={name}></Son>
+                        <button onClick={this.addSidebarDate.bind(this)}>save sidebarData</button>
                     </Children>
                 </Frame>
             </Layout>

@@ -1,4 +1,4 @@
-import 'isomorphic-unfetch';
+// import 'isomorphic-unfetch';
 import config from '../configs';
 let baseUrl = config.apiPrefix;
 // let baseUrl = 'http://localhost:8008';
@@ -31,12 +31,18 @@ export default async(url = '', data = {}, type = 'POST', method = 'fetch') => {
         }
 
         if (type == 'POST') {
-            let searchParams = Object.keys(data).map((key) => {
-                return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
-            }).join('&');
+            // let searchParams = Object.keys(data).map((key) => {
+            //     return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+            // }).join('&');
+
+            var formData  = new FormData();
+
+            for(var name in data) {
+                formData.append(name, data[name]);
+            }
 
             Object.defineProperty(requestConfig, 'body', {
-                value: searchParams
+                value: formData,
             })
         }
 
