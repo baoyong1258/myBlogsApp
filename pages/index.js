@@ -94,14 +94,14 @@ class Child extends React.Component {
             })
             obj.store.dispatch(replaceClick(dataList));
         }
-        const response = await getSidebarDate();
+        // const response = await getSidebarDate();
         // console.log('--- Router ---');
         // console.log(Router);
         return {
             name: pathArr[0],
             message: 'i am ' + pathArr[0],
             linkType: pathArr[0],
-            linkTypeArr: response,
+            // linkTypeArr: response,
             dataList: dataList
         };
     }

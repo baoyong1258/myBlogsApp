@@ -41,48 +41,9 @@ class Child extends React.Component {
         let pathArr = obj.asPath.replace('?','/').split('/').filter(item => !!item);
         console.log('pathArr', pathArr);
         let dataList
+
         if(obj.res){
-            dataList = [
-                {
-                    title: 'child',
-                    children: [
-                        {
-                            title: 'index',
-                            children: [],
-                            url: '/child',
-                            as: '/child'
-                        },
-                        {
-                            title: 'demo',
-                            children: [],
-                            url: '/child?type=child&children=demo',
-                            as: '/child/demo'
-                        }
-                    ],
-                    open: false,
-                },
-                {
-                    title: 'git',
-                    children: [
-                        {
-                            title: 'git的概述',
-                            children: [],
-                            url: '/child?type=git',
-                            as: '/git'
-                        },{
-                            title: 'git基础',
-                            children: [],
-                            url: '/child?type=git&children=basics',
-                            as: '/git/basics'
-                        },{
-                            title: 'git原理',
-                            children: [],
-                            url: '/git/theory',
-                        }
-                    ],
-                    open: false,
-                }
-            ];
+            dataList = await getSidebarDate();
             dataList = dataList.map(item => {
                 if(item.title == pathArr[0]){
                     return {
@@ -95,14 +56,64 @@ class Child extends React.Component {
             })
             obj.store.dispatch(replaceClick(dataList));
         }
-        const response = await getSidebarDate();
-        // console.log('--- Router ---');
-        // console.log(Router);
+        // if(obj.res){
+        //     dataList = [
+        //         {
+        //             title: 'child',
+        //             children: [
+        //                 {
+        //                     title: 'index',
+        //                     children: [],
+        //                     url: '/child',
+        //                     as: '/child'
+        //                 },
+        //                 {
+        //                     title: 'demo',
+        //                     children: [],
+        //                     url: '/child?type=child&children=demo',
+        //                     as: '/child/demo'
+        //                 }
+        //             ],
+        //             open: false,
+        //         },
+        //         {
+        //             title: 'git',
+        //             children: [
+        //                 {
+        //                     title: 'git的概述',
+        //                     children: [],
+        //                     url: '/child?type=git',
+        //                     as: '/git'
+        //                 },{
+        //                     title: 'git基础',
+        //                     children: [],
+        //                     url: '/child?type=git&children=basics',
+        //                     as: '/git/basics'
+        //                 },{
+        //                     title: 'git原理',
+        //                     children: [],
+        //                     url: '/git/theory',
+        //                 }
+        //             ],
+        //             open: false,
+        //         }
+        //     ];
+        //     dataList = dataList.map(item => {
+        //         if(item.title == pathArr[0]){
+        //             return {
+        //                 ...item,
+        //                 open: true,
+        //             }
+        //         }else {
+        //             return item;
+        //         }
+        //     })
+        //     obj.store.dispatch(replaceClick(dataList));
+        // }
         return {
             name: pathArr[0],
             message: 'i am ' + pathArr[0],
             linkType: pathArr[0],
-            linkTypeArr: response,
             dataList: dataList
         };
     }
